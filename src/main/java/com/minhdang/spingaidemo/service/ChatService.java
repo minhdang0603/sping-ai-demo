@@ -9,8 +9,8 @@ public class ChatService {
 
     private final ChatClient chatClient;
 
-    public ChatService(ChatClient.Builder builder) {
-        chatClient = builder.build();
+    public ChatService(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     public String chat(ChatRequest chatRequest) {
