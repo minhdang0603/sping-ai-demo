@@ -1,0 +1,239 @@
+{
+  "type": "object",
+  "properties": {
+    "conversationId": {
+      "type": "string",
+      "description": "Unique conversation identifier"
+    },
+    "response": {
+      "type": "string",
+      "description": "Text summary of the travel recommendation"
+    },
+    "itinerary": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the travel itinerary"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the travel plan"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Start date in YYYY-MM-DD format"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "End date in YYYY-MM-DD format"
+        },
+        "duration": {
+          "type": "integer",
+          "description": "Duration of the trip in days"
+        },
+        "destination": {
+          "type": "string",
+          "description": "Primary destination of the trip"
+        },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "totalCost": {
+              "type": "number",
+              "description": "Total cost of the trip"
+            },
+            "currency": {
+              "type": "string",
+              "description": "Currency code (e.g., USD, EUR)"
+            },
+            "accommodationCost": {
+              "type": "number",
+              "description": "Total accommodation costs"
+            },
+            "transportationCost": {
+              "type": "number",
+              "description": "Total transportation costs"
+            },
+            "foodCost": {
+              "type": "number",
+              "description": "Total food and dining costs"
+            },
+            "activityCost": {
+              "type": "number",
+              "description": "Total activity and entertainment costs"
+            },
+            "miscellaneousCost": {
+              "type": "number",
+              "description": "Other miscellaneous costs"
+            }
+          },
+          "required": ["totalCost", "currency", "accommodationCost", "transportationCost", "foodCost", "activityCost", "miscellaneousCost"],
+          "additionalProperties": false
+        },
+        "dayPlans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dayNumber": {
+                "type": "integer",
+                "description": "Day number of the trip"
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "Date in YYYY-MM-DD format"
+              },
+              "title": {
+                "type": "string",
+                "description": "Title for this day's activities"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description of the day's plan"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the activity"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Detailed description of the activity"
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "Category of activity (e.g., sightseeing, dining, adventure)"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Location where the activity takes place"
+                    },
+                    "startTime": {
+                      "type": "string",
+                      "pattern": "^\\d{2}:\\d{2}$",
+                      "description": "Start time in HH:MM format"
+                    },
+                    "endTime": {
+                      "type": "string",
+                      "pattern": "^\\d{2}:\\d{2}$",
+                      "description": "End time in HH:MM format"
+                    },
+                    "duration": {
+                      "type": "integer",
+                      "description": "Duration in minutes"
+                    },
+                    "cost": {
+                      "type": "number",
+                      "description": "Cost of the activity"
+                    },
+                    "difficulty": {
+                      "type": "string",
+                      "description": "Difficulty level (easy, moderate, hard)"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Tags describing the activity"
+                    },
+                    "isRecommended": {
+                      "type": "boolean",
+                      "description": "Whether this activity is recommended"
+                    }
+                  },
+                  "required": ["name", "description", "category", "location", "startTime", "endTime", "duration", "cost", "difficulty", "tags", "isRecommended"],
+                  "additionalProperties": false
+                }
+              },
+              "accommodation": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the accommodation"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of accommodation (hotel, hostel, apartment, etc.)"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Full address of the accommodation"
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "Location or area description"
+                  },
+                  "pricePerNight": {
+                    "type": "number",
+                    "description": "Price per night"
+                  },
+                  "rating": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Rating out of 5 stars"
+                  },
+                  "amenities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of amenities available"
+                  },
+                  "checkInTime": {
+                    "type": "string",
+                    "description": "Check-in time"
+                  },
+                  "checkOutTime": {
+                    "type": "string",
+                    "description": "Check-out time"
+                  }
+                },
+                "required": ["name", "type", "address", "location", "pricePerNight", "rating", "amenities", "checkInTime", "checkOutTime"],
+                "additionalProperties": false
+              },
+              "dailyCost": {
+                "type": "number",
+                "description": "Total cost for this day"
+              }
+            },
+            "required": ["dayNumber", "date", "title", "description", "activities", "accommodation", "dailyCost"],
+            "additionalProperties": false
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "General recommendations for the trip"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Important warnings or considerations"
+        }
+      },
+      "required": ["title", "description", "startDate", "endDate", "duration", "destination", "budget", "dayPlans", "recommendations", "warnings"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["conversationId", "response", "itinerary"],
+  "additionalProperties": false
+}
+
